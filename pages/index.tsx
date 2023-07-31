@@ -58,8 +58,24 @@ type ReactionEvent = {
   value: string;
 };
 
+function WhoIsHere() {
+  const userCount = useOthers((others) => others.length);
+
+  return userCount === 0 ? (
+    <div className="font-light text-stone-400 leading-5">
+      <p>There are no other users online.</p>
+      <p>Open this site in another browser window to see what happens.</p>
+    </div>
+  ) : (
+    <div className="font-light text-stone-400 leading-5">
+      There are {userCount} other users online.
+    </div>
+  );
+}
+
 function Example() {
   const others = useOthers();
+  const userCount = useOthers((others) => others.length);
   const [{ cursor }, updateMyPresence] = useMyPresence();
   const broadcast = useBroadcastEvent();
   const [state, setState] = useState<CursorState>({ mode: CursorMode.Hidden });
@@ -283,18 +299,51 @@ function Example() {
 }
 
 export default function Page() {
-  const roomId = useOverrideRoomId("nextjs-live-cursors-chat");
+  // const roomId = useOverrideRoomId("nextjs-live-cursors-chat");
+
+  const [iLoveWord, setILoveWord] = React.useState("TypeScript");
+
+  const iLoveArr = [
+    "TypeScript",
+    "React",
+    "Next",
+    "Node",
+    "Supabase",
+    "Postgres",
+    "GraphQL",
+    "SQL",
+    "Liveblocks",
+    "Tailwind",
+    "Azure",
+    "algorithms",
+    "music 🎷",
+    "dogs 🦮",
+    "coffee ☕️",
+  ];
+
+  function randWord(items: Array<String>) {
+    return items[~~(items.length * Math.random())];
+  }
+
+  useEffect(() => {
+    setInterval(() => {
+      const showNextWord: any = randWord(iLoveArr);
+      setILoveWord(showNextWord);
+      console.log("word changed to", showNextWord);
+    }, 8000);
+  }, []);
 
   return (
     <RoomProvider
-      id={roomId}
+      id="newroom"
       initialPresence={() => ({
         cursor: null,
         message: "",
       })}
     >
-      <div className="fixed inset-0 flex justify-center items-center select-none bg-white">
-        <div className="text-center max-w-sm">
+      <div className="fixed inset-0 flex-col justify-center items-center">
+        <div className="text-center">
+          <WhoIsHere />
           <ul className="flex items-center justify-center space-x-2 mt-4">
             <li className="flex items-center space-x-2 text-sm bg-gray-100 rounded-md py-2 px-3">
               <span>Reactions</span>
@@ -318,6 +367,22 @@ export default function Page() {
             </li>
           </ul>
         </div>
+        <div className="text-center py-20">
+          <div className="text-7xl font-bold tracking-tight">
+            <h1>Hi, my name is Ivan .</h1>
+            <p>
+              I love <span className="text-red-600">{"{ "}</span>
+              <span key={+new Date()} className="fade">
+                {iLoveWord}
+              </span>
+              <span className="text-red-600">{" }"}</span>.
+            </p>
+            <p>Currently based in Belmont, CA.</p>
+            <span className="select-auto">diykarelia</span>
+            <span className="text-red-600">{" @ "}</span>
+            <span className="select-auto">gmail.com</span>
+          </div>
+        </div>
       </div>
 
       <Example />
@@ -338,17 +403,4 @@ export async function getStaticProps() {
   }
 
   return { props: {} };
-}
-
-/**
- * This function is used when deploying an example on liveblocks.io.
- * You can ignore it completely if you run the example locally.
- */
-function useOverrideRoomId(roomId: string) {
-  const { query } = useRouter();
-  const overrideRoomId = useMemo(() => {
-    return query?.roomId ? `${roomId}-${query.roomId}` : roomId;
-  }, [query, roomId]);
-
-  return overrideRoomId;
 }

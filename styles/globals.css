@@ -5,5 +5,22 @@
 @layer base {
   body {
     @apply bg-white overflow-hidden;
+    
   }
+}
+
+div {
+  border-color: blue;
+}
+
+.fade {
+            animation: myanimation 2s;
+        }
+        @keyframes myanimation {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+.ttt {
+  border: 5px solid yellow;
 }
