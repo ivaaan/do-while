@@ -335,52 +335,52 @@ export default function Page() {
 
   return (
     <RoomProvider
-      id="newroom"
+      id='newroom'
       initialPresence={() => ({
         cursor: null,
-        message: "",
+        message: '',
       })}
     >
-      <div className="fixed inset-0 flex-col justify-center items-center">
-        <div className="text-center">
+      <div className='fixed inset-0 flex-col justify-center items-center'>
+        <div className='text-center'>
           <WhoIsHere />
-          <ul className="flex items-center justify-center space-x-2 mt-4">
-            <li className="flex items-center space-x-2 text-sm bg-gray-100 rounded-md py-2 px-3">
+          <ul className='flex items-center justify-center space-x-2 mt-4'>
+            <li className='flex items-center space-x-2 text-sm bg-gray-100 rounded-md py-2 px-3'>
               <span>Reactions</span>
-              <span className="block uppercase font-medium text-xs text-gray-500 rounded border border-gray-300 px-1">
+              <span className='block uppercase font-medium text-xs text-gray-500 rounded border border-gray-300 px-1'>
                 E
               </span>
             </li>
 
-            <li className="flex items-center space-x-2 text-sm bg-gray-100 rounded-md py-2 px-3">
+            <li className='flex items-center space-x-2 text-sm bg-gray-100 rounded-md py-2 px-3'>
               <span>Chat</span>
-              <span className="block uppercase font-medium text-xs text-gray-500 rounded border border-gray-300 px-1">
+              <span className='block uppercase font-medium text-xs text-gray-500 rounded border border-gray-300 px-1'>
                 /
               </span>
             </li>
 
-            <li className="flex items-center space-x-2 text-sm bg-gray-100 rounded-md py-2 px-3">
+            <li className='flex items-center space-x-2 text-sm bg-gray-100 rounded-md py-2 px-3'>
               <span>Escape</span>
-              <span className="block uppercase font-medium text-xs text-gray-500 rounded border border-gray-300 px-1">
+              <span className='block uppercase font-medium text-xs text-gray-500 rounded border border-gray-300 px-1'>
                 esc
               </span>
             </li>
           </ul>
         </div>
-        <div className="text-center py-20">
-          <div className="text-7xl font-bold tracking-tight">
+        <div className='text-center py-20'>
+          <div className='text-7xl font-bold tracking-tight'>
             <h1>Hi, my name is Ivan .</h1>
             <p>
-              I love <span className="text-red-600">{"{ "}</span>
-              <span key={+new Date()} className="fade">
+              I love <span className='text-red-600'>{'{ '}</span>
+              <span key={+new Date()} className='fade'>
                 {iLoveWord}
               </span>
-              <span className="text-red-600">{" }"}</span>.
+              <span className='text-red-600'>{' }'}</span>.
             </p>
             <p>Currently based in Belmont, CA.</p>
-            <span>diykarelia</span>
-            <span className="text-red-600">{" @ "}</span>
-            <span>gmail.com</span>
+            <span>ivan</span>
+            <span className='text-red-600'>{' @ '}</span>
+            <span>do-while.dev</span>
           </div>
         </div>
       </div>
