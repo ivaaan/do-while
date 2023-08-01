@@ -3,7 +3,11 @@ node_modules
 .env
 .env.*
 !.env.example
+.envrc
 *.tsbuildinfo
 .vercel
 .next
 out
+.prettierrc
+next-env.d.ts
+.idea
