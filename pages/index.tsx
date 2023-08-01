@@ -378,9 +378,9 @@ export default function Page() {
               <span className="text-red-600">{" }"}</span>.
             </p>
             <p>Currently based in Belmont, CA.</p>
-            <span className="select-auto">diykarelia</span>
+            <span>diykarelia</span>
             <span className="text-red-600">{" @ "}</span>
-            <span className="select-auto">gmail.com</span>
+            <span>gmail.com</span>
           </div>
         </div>
       </div>
