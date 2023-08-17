@@ -4,22 +4,15 @@ import {
   useEventListener,
   useMyPresence,
   useOthers,
-} from "../liveblocks.config";
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import { useRouter } from "next/router";
-import Cursor from "../components/Cursor";
-import FlyingReaction from "../components/FlyingReaction";
-import ReactionSelector from "../components/ReactionSelector";
-import useInterval from "../hooks/useInterval";
+} from '../liveblocks.config';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { useRouter } from 'next/router';
+import Cursor from '../components/Cursor';
+import FlyingReaction from '../components/FlyingReaction';
+import ReactionSelector from '../components/ReactionSelector';
+import useInterval from '../hooks/useInterval';
 
-/**
- * This file shows how to create Live Cursors with a small chat and interactions
- *
- * Because it's a bit more advanced that others examples, it's implemented using typescript to ensure that we introduce less bug while maintaining it.
- * It also uses Tailwind CSS for the styling
- */
-
-const COLORS = ["#DC2626", "#D97706", "#059669", "#7C3AED", "#DB2777"];
+const COLORS = ['#DC2626', '#D97706', '#059669', '#7C3AED', '#DB2777'];
 
 enum CursorMode {
   Hidden,
@@ -62,12 +55,12 @@ function WhoIsHere() {
   const userCount = useOthers((others) => others.length);
 
   return userCount === 0 ? (
-    <div className="font-light text-stone-400 leading-5">
+    <div className='font-light text-stone-400 leading-5'>
       <p>There are no other users online.</p>
       <p>Open this site in another browser window to see what happens.</p>
     </div>
   ) : (
-    <div className="font-light text-stone-400 leading-5">
+    <div className='font-light text-stone-400 leading-5'>
       There are {userCount} other users online.
     </div>
   );
@@ -113,29 +106,29 @@ function Example() {
 
   useEffect(() => {
     function onKeyUp(e: KeyboardEvent) {
-      if (e.key === "/") {
-        setState({ mode: CursorMode.Chat, previousMessage: null, message: "" });
-      } else if (e.key === "Escape") {
-        updateMyPresence({ message: "" });
+      if (e.key === '/') {
+        setState({ mode: CursorMode.Chat, previousMessage: null, message: '' });
+      } else if (e.key === 'Escape') {
+        updateMyPresence({ message: '' });
         setState({ mode: CursorMode.Hidden });
-      } else if (e.key === "e") {
+      } else if (e.key === 'e') {
         setState({ mode: CursorMode.ReactionSelector });
       }
     }
 
-    window.addEventListener("keyup", onKeyUp);
+    window.addEventListener('keyup', onKeyUp);
 
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "/") {
+      if (e.key === '/') {
         e.preventDefault();
       }
     }
 
-    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
 
     return () => {
-      window.removeEventListener("keyup", onKeyUp);
-      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener('keyup', onKeyUp);
+      window.removeEventListener('keydown', onKeyDown);
     };
   }, [updateMyPresence]);
 
@@ -155,12 +148,12 @@ function Example() {
   return (
     <>
       <div
-        className="relative h-screen w-full flex items-center justify-center overflow-hidden touch-none"
+        className='relative h-screen w-full flex items-center justify-center overflow-hidden touch-none'
         style={{
           cursor:
             state.mode === CursorMode.Chat
-              ? "none"
-              : "url(cursor.svg) 0 0, auto",
+              ? 'none'
+              : 'url(cursor.svg) 0 0, auto',
         }}
         onPointerMove={(event) => {
           event.preventDefault();
@@ -200,8 +193,7 @@ function Example() {
               ? { ...state, isPressed: false }
               : state
           );
-        }}
-      >
+        }}>
         {reactions.map((reaction) => {
           return (
             <FlyingReaction
@@ -215,25 +207,23 @@ function Example() {
         })}
         {cursor && (
           <div
-            className="absolute top-0 left-0"
+            className='absolute top-0 left-0'
             style={{
               transform: `translateX(${cursor.x}px) translateY(${cursor.y}px)`,
-            }}
-          >
+            }}>
             {state.mode === CursorMode.Chat && (
               <>
-                <img src="cursor.svg" />
+                <img src='cursor.svg' />
 
                 <div
-                  className="absolute top-5 left-2 px-4 py-2 bg-blue-500 text-white leading-relaxed text-sm"
+                  className='absolute top-5 left-2 px-4 py-2 bg-blue-500 text-white leading-relaxed text-sm'
                   onKeyUp={(e) => e.stopPropagation()}
                   style={{
                     borderRadius: 20,
-                  }}
-                >
+                  }}>
                   {state.previousMessage && <div>{state.previousMessage}</div>}
                   <input
-                    className="bg-transparent border-none	outline-none text-white placeholder-blue-300 w-60"
+                    className='bg-transparent border-none	outline-none text-white placeholder-blue-300 w-60'
                     autoFocus={true}
                     onChange={(e) => {
                       updateMyPresence({ message: e.target.value });
@@ -244,19 +234,19 @@ function Example() {
                       });
                     }}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter") {
+                      if (e.key === 'Enter') {
                         setState({
                           mode: CursorMode.Chat,
                           previousMessage: state.message,
-                          message: "",
+                          message: '',
                         });
-                      } else if (e.key === "Escape") {
+                      } else if (e.key === 'Escape') {
                         setState({
                           mode: CursorMode.Hidden,
                         });
                       }
                     }}
-                    placeholder={state.previousMessage ? "" : "Say something…"}
+                    placeholder={state.previousMessage ? '' : 'Say something…'}
                     value={state.message}
                     maxLength={50}
                   />
@@ -271,7 +261,7 @@ function Example() {
               />
             )}
             {state.mode === CursorMode.Reaction && (
-              <div className="absolute top-3.5 left-1 pointer-events-none select-none">
+              <div className='absolute top-3.5 left-1 pointer-events-none select-none'>
                 {state.reaction}
               </div>
             )}
@@ -299,26 +289,24 @@ function Example() {
 }
 
 export default function Page() {
-  // const roomId = useOverrideRoomId("nextjs-live-cursors-chat");
-
-  const [iLoveWord, setILoveWord] = React.useState("TypeScript");
+  const [iLoveWord, setILoveWord] = React.useState('TypeScript');
 
   const iLoveArr = [
-    "TypeScript",
-    "React",
-    "Next",
-    "Node",
-    "Supabase",
-    "Postgres",
-    "GraphQL",
-    "SQL",
-    "Liveblocks",
-    "Tailwind",
-    "Azure",
-    "algorithms",
-    "music 🎷",
-    "dogs 🦮",
-    "coffee ☕️",
+    'TypeScript',
+    'React',
+    'Next',
+    'Node',
+    'Supabase',
+    'Postgres',
+    'GraphQL',
+    'SQL',
+    'Liveblocks',
+    'Tailwind',
+    'Azure',
+    'algorithms',
+    'music 🎷',
+    'dogs 🦮',
+    'coffee ☕️',
   ];
 
   function randWord(items: Array<String>) {
@@ -329,7 +317,7 @@ export default function Page() {
     setInterval(() => {
       const showNextWord: any = randWord(iLoveArr);
       setILoveWord(showNextWord);
-      console.log("word changed to", showNextWord);
+      console.log('word changed to', showNextWord);
     }, 8000);
   }, []);
 
@@ -339,8 +327,7 @@ export default function Page() {
       initialPresence={() => ({
         cursor: null,
         message: '',
-      })}
-    >
+      })}>
       <div className='fixed inset-0 flex-col justify-center items-center'>
         <div className='text-center'>
           <WhoIsHere />
@@ -388,19 +375,4 @@ export default function Page() {
       <Example />
     </RoomProvider>
   );
-}
-
-export async function getStaticProps() {
-  const API_KEY = process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY;
-  const API_KEY_WARNING = process.env.CODESANDBOX_SSE
-    ? `Add your public key from https://liveblocks.io/dashboard/apikeys as the \`NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY\` secret in CodeSandbox.\n` +
-      `Learn more: https://github.com/liveblocks/liveblocks/tree/main/examples/nextjs-live-cursors-chat#codesandbox.`
-    : `Create an \`.env.local\` file and add your public key from https://liveblocks.io/dashboard/apikeys as the \`NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY\` environment variable.\n` +
-      `Learn more: https://github.com/liveblocks/liveblocks/tree/main/examples/nextjs-live-cursors-chat#getting-started.`;
-
-  if (!API_KEY) {
-    console.warn(API_KEY_WARNING);
-  }
-
-  return { props: {} };
 }
